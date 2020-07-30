@@ -148,8 +148,8 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#浮点类型" id="浮点类型">浮点类型</a></h1>
-Rust提供IEEE单双精度的浮点了行。且遵循IEEE 754-2008规范，这些类型包含正负无穷，不同的正零和负零值以及一个非数字值：
-![](../../img/img-book/ch3-08.png)
+<p>Rust提供IEEE中的单双精度的浮点数，并遵循IEEE 754-2008规范，这些类型包含正负无穷，不同的正零和负零值以及一个非数字值：
+<img src="../../img/img-book/ch3-08.png" alt="" /></p>
 <p>Rust的<code>f32</code>和<code>f64</code>对应于支持IEEE浮点的C/C++实现的float和double类型，并且也对应于习惯使用IEEE浮点的Java。</p>
 <p>浮点字面量的一般形式如下图所示：
 <img src="../../img/img-book/ch3-09.png" alt="" />
@@ -166,7 +166,6 @@ Rust提供IEEE单双精度的浮点了行。且遵循IEEE 754-2008规范，这�
 </span>    assert_eq!(5f32.sqrt() * 5f32.sqrt(), 5.);
     assert_eq!(-1.01f64.floor(), -1.0);
     assert!((-1. / std::f32::INFINITY).is_sign_negative());
-
 <span class="boring">}
 </span></code></pre></pre>
 <p>正如之前所述，通常在实际代码中，你不需要写这些类型后缀因为上文会决定这些类型。然而，如果不是这样，由此引发的错误信息会令人惊讶。举例，下面这行代码无法通过编译：</p>
@@ -174,18 +173,17 @@ Rust提供IEEE单双精度的浮点了行。且遵循IEEE 754-2008规范，这�
 <span class="boring">#![allow(unused_variables)]
 </span><span class="boring">fn main() {
 </span>    println!(&quot;{}&quot;, (2.0).sqrt());
-
 <span class="boring">}
 </span></code></pre></pre>
-<p>Rust提出:
-<pre>error: no method named sqrt found for type `{float}` in the current scope</pre>
-这令人意想不到；除了浮点类型，还有哪里能找到<code>sqrt</code>方法呢？解决的办法是用一种或另一种方式声明你想要的类型：</p>
+<p>Rust提出:</p>
+<pre><code class="language-shell">error: no method named sqrt found for type \`{float}\` in the current scope
+</code></pre>
+<p>这令人意想不到；除了浮点类型，还有哪里能找到<code>sqrt</code>方法呢？解决的办法是用一种或另一种方式声明你想要的类型：</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
 </span><span class="boring">fn main() {
 </span>    println!(&quot;{}&quot;, (2.0_f64).sqrt());
     println!(&quot;{}&quot;, f64::sqrt(2.0));
-
 <span class="boring">}
 </span></code></pre></pre>
 <p>不同于C/C++，Rust几乎没有隐式类型转换。如果一个函数需要一个<code>f64</code>的参数，则传递<code>i32</code>的值作为其参数是错误的。事实上，即时每个<code>i16</code>的值都是<code>i32</code>的值，Rust也不会将<code>i16</code>的值隐式转换为<code>i32</code>的值。但是这里的关键词是<em>隐含的</em>：你始终可以使用<code>as</code>运算符写出明确的转换：<code>i as f64</code>或者<code>x as i32</code>。缺少隐式转换会使得Rust的表达式相较于类似的C/C++代码更冗长。然而，有一份完善的记录表明，隐式整数转换会引起错误和安全漏洞；根据我们的经验，在Rust中写出数字转换使我们警惕了本来会错过的问题。我们会在第六章：表达式中类型转换这一节解释转换的细节。</p>
